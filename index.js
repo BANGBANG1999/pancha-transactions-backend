@@ -1,6 +1,7 @@
 const pool = require("./connect");
 const express = require("express");
 const app = express();
+const PORT = 7000
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ limit: "16kb", extended: true }));
@@ -85,4 +86,6 @@ app.post("/payment.html", (req, res) => {
   });
 });
 
-app.listen(7000);
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
