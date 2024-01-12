@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <form action="/payment.html" method="post">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Enter amount</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" name="amount">
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Add remarks</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="remark1"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Add remarks</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="remark2"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Payment method</label>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown button
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" onclick="setPaymentMethod('cash')" id="cash" href="#">By cash</a></li>
+            <li><a class="dropdown-item" onclick="setPaymentMethod('online')" href="#">Online</a></li>
+          </ul>
+        </div>
+        <!-- Hidden input to store the selected payment method -->
+        <input type="hidden" name="paymentMethod" id="paymentMethod" value="">
+      </div>
+
+      <button type="submit" class="btn">Submit</button>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+      // JavaScript function to set the payment method in the hidden input
+      function setPaymentMethod(method) {
+        document.getElementById('paymentMethod').value = method;
+      }
+    </script>
+  </body>
+</html>

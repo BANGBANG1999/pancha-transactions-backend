@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transactions</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+  <h1>Expenses</h1>
+  <div class="addExpense" style="display: flex;">
+      <h3 style="margin-right: 20px;">add an expense</h3>
+      <a style="cursor: pointer;" href="payment.html"> + </a>
+  </div>
+
+  <ul class="list-group list-group-horizontal">
+    <li class="list-group-item">Expenses</li>
+    <li class="list-group-item">Remark</li>
+    <li class="list-group-item">Remark</li>
+  </ul>
+  <ul class="list-group list-group-horizontal-sm" id="expenseList">
+    <!-- Dynamic data fetching here-->
+  </ul>
+  <ul class="list-group list-group-horizontal-xxl">
+    <li class="list-group-item">Total</li>
+    <li class="list-group-item" id="totalAmount"></li>
+  </ul>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script>
+
+  // get amount value from url
+  function getQueryParam(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+  }
+
+  async function fetchExpenses() {
+    try {
+      const amount = getQueryParam('amount');
+
+      if (amount) {
+        const response = await fetch('/expenses');
+        const data = await response.json();
+
+        document.getElementById('expenseList').innerHTML = `
+          <li class="list-group-item">${amount} by ${data.payment_method}</li>
+          <li class="list-group-item">${data.remark_one}</li>
+          <li class="list-group-item">${data.remark_two}</li>
+        `;
+
+        document.getElementById('totalAmount').innerText = data.total_amount;
+
+      } else {
+        const response = await fetch('/expenses');
+        const data = await response.json();
+
+        document.getElementById('expenseList').innerHTML = '';
+        document.getElementById('totalAmount').innerText =  data.total_amount;
+      }
+    } catch (error) {
+      console.error('Error fetching expenses:', error);
+    }
+  }
+
+  fetchExpenses();
+  </script>
+</body>
+</html>
